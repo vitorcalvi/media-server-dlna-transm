@@ -1,0 +1,21 @@
+FROM base_media
+
+RUN apt-get install transmission-daemon -y && apt-get autoremove
+
+COPY settings.json /etc/transmission-daemon
+
+RUN groupadd -g $GID transmissions && \
+    usermod -u $UID debian-transmission && \
+    usermod -aG transmissions debian-transmission && \
+    chown -R debian-transmission:debian-transmission /etc/transmission-daemon && \
+    chown -R debian-transmission:debian-transmission /var/lib/transmission-daemon && \
+    echo "[Service]" >> /etc/systemd/system/multi-user.target.wants/transmission-daemon.service && \
+    echo "User=debian-transmission" >> /etc/systemd/system/multi-user.target.wants/transmission-daemon.service
+
+EXPOSE 9091/tcp
+
+VOLUME ["/share", "/var/lib/transmission-daemon"]
+
+USER debian-transmission
+
+CMD ["transmission-daemon", "-f", "-g", "/var/lib/transmission-daemon/.config/transmission-daemon"]

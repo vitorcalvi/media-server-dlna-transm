@@ -1,0 +1,18 @@
+FROM base_media
+
+ENV USER user
+ENV PASS pass
+ENV SHARE_NAME share
+
+ADD smb /run.sh
+ADD smb.conf /etc/samba/smb.conf
+
+RUN apt-get install -y samba-common-bin samba && \
+    apt-get autoremove && \
+    chmod u+x /run.sh
+
+EXPOSE 445
+
+VOLUME ["/share"]
+
+CMD ["bash", "/run.sh"]

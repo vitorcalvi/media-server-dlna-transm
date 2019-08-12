@@ -1,0 +1,49 @@
+version: '3'
+
+volumes:
+  share: {}
+  transmission: {}
+
+services:
+  base:
+    build:
+      context: .
+    image: base_media
+
+  samba:
+    build:
+      context: .
+      dockerfile: SambaDockerfile
+    restart: always
+    ports:
+      - 445:445
+    volumes:
+      - share:/share
+    depends_on:
+      - base
+    env_file:
+      - user.env
+
+  transmission:
+    build:
+      context: .
+      dockerfile: TransmissionDockerfile
+    restart: always
+    ports:
+      - 9091:9091
+    volumes:
+      - share:/share
+      - transmission:/var/lib/transmission-daemon
+    depends_on:
+      - base
+
+  minidlna:
+    build:
+      context: .
+      dockerfile: DlnaDockerfile
+    restart: always
+    network_mode: "host"
+    volumes:
+      - share:/share:ro
+    depends_on:
+      - base
