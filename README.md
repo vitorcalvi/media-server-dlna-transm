@@ -10,7 +10,8 @@ Media server contains 3 containers:
 - One system transmission data volume.
 
 #### Arch
-arm64v8 (or arm64 or aarch64).
+- docker base image: arm64v8/debian:stretch
+- so device arch is arm64v8 (or arm64 or aarch64)
 
 ## How to install?
 1.Clone or download repo:
