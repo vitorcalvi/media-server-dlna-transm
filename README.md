@@ -17,7 +17,7 @@ Media server contains 3 containers:
 1.Clone or download repo:
 ```
 git clone https://github.com/msergei/media-server.git
-git cd media-server
+cd media-server
 ```
 2.If your want, you can set new login and pass (please see 'user.env.example'):
 ```
