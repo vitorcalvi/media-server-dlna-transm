@@ -1,4 +1,4 @@
-FROM arm64v8/debian:stretch
+FROM armhf/debian:stretch
 
 ENV DEBIAN_FRONTEND noninteractive
 
