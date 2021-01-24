@@ -1,4 +1,4 @@
-FROM arm64v8/debian:stretch
+FROM arm64v8/debian:bullseye-slim
 
 ENV DEBIAN_FRONTEND noninteractive
 
