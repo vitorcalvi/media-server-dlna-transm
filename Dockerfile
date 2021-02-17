@@ -1,4 +1,4 @@
-FROM armhf/debian:stretch
+FROM arm32v7/debian:10-slim
 
 ENV DEBIAN_FRONTEND noninteractive
 

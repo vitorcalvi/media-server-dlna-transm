@@ -21,4 +21,4 @@ cat /etc/samba/smb.conf
 chown -R smbuser /share
 
 #Start samba process
-exec ionice -c 3 smbd -FS --configfile=/etc/samba/smb.conf </dev/null
+exec ionice -c 3 smbd -FS --configfile=/etc/samba/smb.conf --no-process-group </dev/null
