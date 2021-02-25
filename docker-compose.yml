@@ -3,6 +3,7 @@ version: '3'
 volumes:
   share: {}
   transmission: {}
+  conf: {}
 
 services:
   base:
@@ -39,13 +40,21 @@ services:
     environment:
       - TRANSMISSION_WEB_HOME=/combustion/combustion-release
 
-  minidlna:
-    build:
-      context: .
-      dockerfile: DlnaDockerfile
-    restart: always
-    network_mode: "host"
+  emby:
+    image: emby/embyserver_arm32v7
+    network_mode: host # Enable DLNA and Wake-on-Lan
+    environment:
+      - UID=1000
+      - GID=200
+      - GIDLIST=100 # A comma-separated list of additional GIDs to run emby as (default: 2)
     volumes:
-      - share:/share:ro
+      - conf:/config
+      - share:/mnt/share
+#    ports:
+#      - 8096:8096 # HTTP port
+#      - 8920:8920 # HTTPS port
+    devices:
+      - /dev/vchiq:/dev/vchiq # MMAL/OMX on Raspberry Pi
+    restart: always
     depends_on:
       - base
