@@ -49,12 +49,16 @@ services:
       - GIDLIST=100 # A comma-separated list of additional GIDs to run emby as (default: 2)
     volumes:
       - conf:/config
-      - share:/mnt/share
+      - share:/mnt/share:ro
+# If you don't use host network
 #    ports:
 #      - 8096:8096 # HTTP port
 #      - 8920:8920 # HTTPS port
     devices:
       - /dev/vchiq:/dev/vchiq # MMAL/OMX on Raspberry Pi
+      - /dev/video10:/dev/video10 # Rasp Pi 4 L2 video encoding
+      - /dev/video11:/dev/video11 # Rasp Pi 4 L2 video encoding
+      - /dev/video12:/dev/video12 # Rasp Pi 4 L2 video encoding
     restart: always
     depends_on:
       - base
