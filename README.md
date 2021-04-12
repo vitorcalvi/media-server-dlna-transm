@@ -28,12 +28,20 @@ echo 'PASS=MY_PASS' >> user.env
 ```
 - Start docker-compose:
 ```
-chmod +x rebuild.sh
 bash rebuild.sh
+```
+
+- Open Emby server to configure it:
+```
+http://IP_MACHINE:8096/
 ```
 
 ## How to use?
 
+- You can open browser link Emby server:
+```
+http://IP_MACHINE:8096/
+```
 - You can add torrent files at transmission web page:
 ```
 http://IP_MACHINE:9091/transmission/web/
