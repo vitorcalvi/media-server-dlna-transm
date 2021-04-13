@@ -1,4 +1,4 @@
-FROM arm32v7/debian:10-slim
+FROM arm64v8/debian:bullseye-slim
 
 ENV DEBIAN_FRONTEND noninteractive
 

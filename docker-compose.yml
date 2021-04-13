@@ -41,7 +41,7 @@ services:
       - TRANSMISSION_WEB_HOME=/combustion/combustion-release
 
   emby:
-    image: emby/embyserver_arm32v7
+    image: emby/embyserver_arm64v8
     network_mode: host # Enable DLNA and Wake-on-Lan
     environment:
       - UID=1000
@@ -54,11 +54,11 @@ services:
 #    ports:
 #      - 8096:8096 # HTTP port
 #      - 8920:8920 # HTTPS port
-    devices:
-      - /dev/vchiq:/dev/vchiq # MMAL/OMX on Raspberry Pi
-      - /dev/video10:/dev/video10 # Rasp Pi 4 L2 video encoding
-      - /dev/video11:/dev/video11 # Rasp Pi 4 L2 video encoding
-      - /dev/video12:/dev/video12 # Rasp Pi 4 L2 video encoding
+#    devices:
+#      - /dev/vchiq:/dev/vchiq # MMAL/OMX on Raspberry Pi
+#      - /dev/video10:/dev/video10 # Rasp Pi 4 L2 video encoding
+#      - /dev/video11:/dev/video11 # Rasp Pi 4 L2 video encoding
+#      - /dev/video12:/dev/video12 # Rasp Pi 4 L2 video encoding
     restart: always
     depends_on:
       - base
