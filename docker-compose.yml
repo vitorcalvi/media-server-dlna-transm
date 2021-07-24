@@ -58,5 +58,3 @@ services:
     devices:
       - /dev/dri:/dev/dri
     restart: always
-    depends_on:
-      - base

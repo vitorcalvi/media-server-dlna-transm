@@ -1,6 +1,6 @@
 ARG arch
 
-FROM "${arch}"debian:bullseye-slim
+FROM "${arch}"debian:stable-slim
 
 ENV DEBIAN_FRONTEND noninteractive
 
