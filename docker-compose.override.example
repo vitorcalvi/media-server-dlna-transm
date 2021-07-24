@@ -1,0 +1,12 @@
+version: "3.6"
+
+services:
+  samba:
+    environment:
+      - USER=YOUR_USER
+      - PASS=YOUR_PASS
+
+  jellyfin:
+    environment:
+      - TZ=Europe/Moscow
+      - JELLYFIN_PublishedServerUrl=YOU_DOMAIN_OR_IP #optional

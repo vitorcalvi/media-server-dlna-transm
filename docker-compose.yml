@@ -1,14 +1,16 @@
-version: '3'
+version: '3.6'
 
 volumes:
   share: {}
   transmission: {}
-  conf: {}
+  config: {}
 
 services:
   base:
     build:
       context: .
+      args:
+        arch: ${arch}
     image: base_media
 
   samba:
@@ -22,8 +24,6 @@ services:
       - share:/share
     depends_on:
       - base
-    env_file:
-      - user.env
 
   transmission:
     build:
@@ -40,25 +40,23 @@ services:
     environment:
       - TRANSMISSION_WEB_HOME=/combustion/combustion-release
 
-  emby:
-    image: emby/embyserver_arm64v8
-    network_mode: host # Enable DLNA and Wake-on-Lan
+  jellyfin:
+    network_mode: host # Enable DLNA
+    image: "linuxserver/jellyfin:${tag}"
     environment:
-      - UID=1000
-      - GID=200
-      - GIDLIST=100 # A comma-separated list of additional GIDs to run emby as (default: 2)
+      - PUID=1000
+      - PGID=200
     volumes:
-      - conf:/config
+      - config:/config
       - share:/mnt/share:ro
-# If you don't use host network
-#    ports:
-#      - 8096:8096 # HTTP port
-#      - 8920:8920 # HTTPS port
-#    devices:
-#      - /dev/vchiq:/dev/vchiq # MMAL/OMX on Raspberry Pi
-#      - /dev/video10:/dev/video10 # Rasp Pi 4 L2 video encoding
-#      - /dev/video11:/dev/video11 # Rasp Pi 4 L2 video encoding
-#      - /dev/video12:/dev/video12 # Rasp Pi 4 L2 video encoding
+      - /opt/vc/lib:/opt/vc/lib
+#    ports:    # not active if host mode is activated
+#      - 8096:8096
+#      - 8920:8920 #optional
+#      - 7359:7359/udp #optional
+#      - 1900:1900/udp #optional
+    devices:
+      - /dev/dri:/dev/dri
     restart: always
     depends_on:
       - base

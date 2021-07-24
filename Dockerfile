@@ -1,4 +1,6 @@
-FROM arm64v8/debian:bullseye-slim
+ARG arch
+
+FROM "${arch}"debian:bullseye-slim
 
 ENV DEBIAN_FRONTEND noninteractive
 
