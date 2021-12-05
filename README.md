@@ -26,9 +26,14 @@ cd media-server
 echo 'USER=MY_LOGIN' > user.env
 echo 'PASS=MY_PASS' >> user.env
 ```
-- Start docker-compose:
+- Copy your arch file to .env, for example:
 ```
-bash rebuild.sh
+cp amd64.env .env
+```
+
+- Start docker-compose project:
+```
+docker-compose up -d
 ```
 
 - Open Emby server to configure it:
