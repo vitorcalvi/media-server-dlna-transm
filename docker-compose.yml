@@ -6,8 +6,6 @@ services:
   base:
     build:
       context: .
-      args:
-        arch: ${arch}
     image: base_media
 
   samba:
