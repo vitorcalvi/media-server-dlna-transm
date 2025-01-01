@@ -1,9 +1,6 @@
-version: '3.6'
-
 volumes:
   share: {}
   transmission: {}
-  config: {}
 
 services:
   base:
@@ -24,6 +21,9 @@ services:
       - share:/share
     depends_on:
       - base
+    environment:
+      - USER=${USER}
+      - PASS=${PASSWORD}
 
   transmission:
     build:
@@ -40,21 +40,3 @@ services:
     environment:
       - TRANSMISSION_WEB_HOME=/combustion/combustion-release
 
-  jellyfin:
-    network_mode: host # Enable DLNA
-    image: "linuxserver/jellyfin:${tag}"
-    environment:
-      - PUID=1000
-      - PGID=200
-    volumes:
-      - config:/config
-      - share:/mnt/share:ro
-      - /opt/vc/lib:/opt/vc/lib
-#    ports:    # not active if host mode is activated
-#      - 8096:8096
-#      - 8920:8920 #optional
-#      - 7359:7359/udp #optional
-#      - 1900:1900/udp #optional
-    devices:
-      - /dev/dri:/dev/dri
-    restart: always

@@ -1,17 +1,13 @@
-# Media Server (Samba + Dlna + Transmission)
-Media server contains 3 containers:
+# Media Server (Samba + Dlna + Transmission + JellyFin)
+Media server contains 4 containers:
 
 - Samba
 - Dlna
 - Transmission
+- JellyFin
 
-#### Volumes
-- One data volume. 
-- One system transmission data volume.
-
-#### Arch
-- docker base image: arm64v8/debian:stretch
-- so device arch is arm64v8 (or arm64 or aarch64)
+#### Tested arch
+- arm64
 
 ## How to install?
 - You need to install docker and docker-compose. Please use official manuals.
@@ -21,14 +17,13 @@ Media server contains 3 containers:
 git clone https://github.com/msergei/media-server.git
 cd media-server
 ```
-- If your want, you can set new login and pass (please see 'user.env.example'):
+- Copy env file and setup your credentials (please see 'example.env'):
 ```
-echo 'USER=MY_LOGIN' > user.env
-echo 'PASS=MY_PASS' >> user.env
+cp example.env .env
 ```
-- Copy your arch file to .env, for example:
+- If you want MiniDlna or JellyFin (contains own Dlna serverice) copy override.example file:
 ```
-cp amd64.env .env
+cp docker-compose.override.example.yml docker-compose.override.yml
 ```
 
 - Start docker-compose project:
@@ -36,17 +31,8 @@ cp amd64.env .env
 docker-compose up -d
 ```
 
-- Open Emby server to configure it:
-```
-http://IP_MACHINE:8096/
-```
-
 ## How to use?
 
-- You can open browser link Emby server:
-```
-http://IP_MACHINE:8096/
-```
 - You can add torrent files at transmission web page:
 ```
 http://IP_MACHINE:9091/transmission/web/
@@ -55,9 +41,3 @@ http://IP_MACHINE:9091/transmission/web/
 ```
 smb://IP_MACHINE/share
 ```
-You must use user and password from 'user.env' if you created it or standard credentials from 'user.env.example':
-```
-user
-pass
-```
-- You can use special Dlna device or player (VLC for example).

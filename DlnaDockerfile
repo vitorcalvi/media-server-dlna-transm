@@ -1,0 +1,11 @@
+FROM base_media
+
+RUN useradd -d /share -s /bin/bash minidlna && apt-get install -y minidlna && chown minidlna:minidlna /usr/sbin/minidlnad && apt-get autoremove -y
+
+COPY minidlna.conf /etc/minidlna.conf
+
+VOLUME ["/share"]
+
+USER minidlna
+
+CMD ["minidlnad", "-d"]

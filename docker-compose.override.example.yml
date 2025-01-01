@@ -1,0 +1,43 @@
+volumes:
+  share: {}
+  transmission: {}
+  config: {}
+
+services:
+  minidlna:
+    build:
+      context: .
+      dockerfile: DlnaDockerfile
+    restart: always
+    network_mode: "host"
+    volumes:
+      - share:/share:ro
+    depends_on:
+      - base
+
+  jellyfin:
+    network_mode: host # Enable DLNA
+    image: "linuxserver/jellyfin:${tag}"
+    environment:
+      - PUID=1000
+      - PGID=200
+      - TZ=Europe/Moscow
+      - JELLYFIN_PublishedServerUrl=YOU_DOMAIN_OR_IP #optional
+    volumes:
+      - config:/config
+      - share:/mnt/share:ro
+      - /opt/vc/lib:/opt/vc/lib
+#    ports:    # not active if host mode is activated
+#      - 8096:8096
+#      - 8920:8920 #optional
+#      - 7359:7359/udp #optional
+#      - 1900:1900/udp #optional
+    devices:
+      - /dev/dri:/dev/dri
+    restart: always
+    # Raspberry Pi devices:
+    #      - /dev/vcsm:/dev/vcsm
+    #      - /dev/vchiq:/dev/vchiq
+    #      - /dev/video10:/dev/video10
+    #      - /dev/video11:/dev/video11
+    #      - /dev/video12:/dev/video12
