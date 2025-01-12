@@ -9,7 +9,7 @@ echo "Add user smbuser with id: $UID"
 useradd -M $USER && (echo "$PASS"; echo "$PASS") | smbpasswd -s -a $USER
 
 #Add share config
-echo "[$SHARE_NAME]" >> /etc/samba/smb.conf
+echo "[share]" >> /etc/samba/smb.conf
 echo "path = \"/share\"" >> /etc/samba/smb.conf
 echo "read only = no" >> /etc/samba/smb.conf
 echo "valid users = $USER" >> /etc/samba/smb.conf
@@ -20,5 +20,5 @@ cat /etc/samba/smb.conf
 #Update permissions
 chown -R smbuser /share
 
-#Start samba process
-exec ionice -c 3 smbd -FS --configfile=/etc/samba/smb.conf --no-process-group </dev/null
+echo "Start samba process..."
+exec ionice -c 3 smbd -F --configfile=/etc/samba/smb.conf --no-process-group </dev/null
