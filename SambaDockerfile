@@ -1,7 +1,7 @@
 FROM base_media
 
-ENV USER user
-ENV PASS pass
+ENV USER=user
+ENV PASS=pass
 
 ADD smb.sh /run.sh
 ADD smb.conf /etc/samba/smb.conf

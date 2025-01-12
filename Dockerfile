@@ -1,6 +1,6 @@
 FROM debian:stable-slim
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 ENV UID=1000
 ENV GID=200
 
