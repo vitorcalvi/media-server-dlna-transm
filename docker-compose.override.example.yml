@@ -1,6 +1,7 @@
 volumes:
   share: {}
   config: {}
+  cache: {}
 
 services:
   minidlna:
@@ -25,6 +26,7 @@ services:
       - JELLYFIN_PublishedServerUrl=YOU_DOMAIN_OR_IP #optional
     volumes:
       - config:/config
+      - cache:/cache
       - share:/share
       - /opt/vc/lib:/opt/vc/lib
 #    ports:    # not active if host mode is activated
