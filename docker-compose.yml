@@ -17,11 +17,13 @@ services:
       - 445:445
     volumes:
       - share:/share
+    environment:
+      - USER=${USER:-mediauser}
+      - PASS=${PASSWORD:-mediapass}
+      - UID=${LOCAL_UID:-1000}
+      - GID=${LOCAL_GID:-1000}
     depends_on:
       - base
-    environment:
-      - USER=${USER}
-      - PASS=${PASSWORD}
 
   transmission:
     build:
@@ -37,4 +39,3 @@ services:
       - base
     environment:
       - TRANSMISSION_WEB_HOME=/combustion/combustion-release
-
